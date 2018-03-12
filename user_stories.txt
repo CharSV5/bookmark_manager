@@ -1,0 +1,13 @@
+User stories
+
+As a user,
+so I can see what my bookmarks are,
+I'd like my current bookmarks laid out clearly.
+
+As a user,
+so I can add new bookmarks,
+I'd like an easy 'add' method.
+
+As a user,
+so I can delete bookmarks,
+I'd like an easy 'delete' method.
