@@ -1,8 +1,12 @@
 require 'sinatra/base'
 require './lib/link'
 require './database_connection_setup'
+require 'sinatra/flash'
+require './lib/database_connection'
 
 class BookmarkManager < Sinatra::Base
+  enable :sessions
+  register Sinatra::Flash
 
   get '/' do
     @links = Link.all
@@ -14,8 +18,13 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/create' do
-    Link.create(url: params['url'])
-    redirect '/'
+    successful = Link.create(url: params['url'], title: params['title'])
+    if successful
+      redirect '/'
+    else
+      flash[:notice] = "That is not a valid url."
+      redirect '/new-link'
+    end
   end
 
    run! if app_file == $0

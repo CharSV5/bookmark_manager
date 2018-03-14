@@ -1,8 +1,8 @@
 feature 'testing links can be viewed' do
   scenario 'when requested by user, display inks' do
     visit '/'
-    expect(page).to have_content 'www.makersacademy.com'
-    expect(page).to have_content 'www.google.com'
-    expect(page).to have_content 'www.twitter.com'
+    expect(page).to have_content 'Makers Academy'
+    expect(page).to have_content 'Google'
+    expect(page).to have_content 'Twitter'
   end
 end
