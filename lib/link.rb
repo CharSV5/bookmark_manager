@@ -22,8 +22,8 @@ attr_reader :id, :url, :title
     true
   end
 
-  def self.delete(title)
-    DatabaseConnection.query "DELETE FROM links WHERE title = '#{title}';"
+  def self.delete(id)
+    DatabaseConnection.query "DELETE FROM links WHERE id = '#{id}';"
   end
 
   private

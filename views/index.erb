@@ -9,14 +9,16 @@
     <% @links.each do |link| %>
     <li id="link-<%= link.id %>">
          <a href="<%= link.url %>">
-        <%= link.title %></a></li>
+        <%= link.title %></a>
+        <form action="/delete" method="post">
+          <input type="hidden" name="id" value="<%= link.id %>">
+        <input type="submit" value="Delete" />
+      </form>
+      </li>
       <% end %>
     </ul>
     <a href="/new-link">Add New Link</a>
-    <form action="/delete" method="post">
-      <input type="text" name="delete_title">
-      <input type="submit" value="Delete">
-    </form>
+
 
   </body>
 </html>
