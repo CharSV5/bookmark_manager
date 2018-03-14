@@ -7,8 +7,8 @@
   <body>
     <ul>
     <% @links.each do |link| %>
-    <li id="link-<%= link.id %>"
-         <a href="<%= link.url %>" target="_blank">
+    <li id="link-<%= link.id %>">
+         <a href="<%= link.url %>">
         <%= link.title %></a></li>
       <% end %>
     </ul>
