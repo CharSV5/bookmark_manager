@@ -26,6 +26,10 @@ attr_reader :id, :url, :title
     DatabaseConnection.query "DELETE FROM links WHERE id = '#{id}';"
   end
 
+  def self.edit(id, options)
+    DatabaseConnection.query("UPDATE links SET url = '#{options[:url]}', title = '#{options[:title]}' WHERE id = '#{id}'")
+  end
+
   private
 
   def self.is_url?(url)

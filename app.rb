@@ -32,6 +32,10 @@ class BookmarkManager < Sinatra::Base
     redirect '/'
   end
 
+  get '/edit' do
+    session[:id] = params[:id]
+    erb :edit
+  end
    run! if app_file == $0
 
 end
