@@ -39,12 +39,12 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/update-a-link' do
-    Link.edit(params[:id], params[:url], params[:title])
+    Link.edit(params[:id], params[:edit_url], params[:edit_title])
     Link.all
     redirect '/'
   end
 
-  
+
 
 
    run! if app_file == $0

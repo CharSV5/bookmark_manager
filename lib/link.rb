@@ -17,7 +17,7 @@ attr_reader :id, :url, :title
   end
 
   def self.create(url, title)
-    return false unless is_url?(options[:url])
+    return false unless is_url?(url)
     DatabaseConnection.query("INSERT INTO links (url, title) values('#{url}', '#{title}')")
     true
   end

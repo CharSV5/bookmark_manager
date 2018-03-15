@@ -8,9 +8,9 @@
   <form action="/update-a-link" method="post">
     <input type="hidden" name="id" value="<%= session[:id] %>">
     <label for="url">URL</label>
-    <input type="text" name="url" value="<%= @link.url %>"/>
+    <input type="text" name="edit_url" value="<%= @link.url %>"/>
     <label for="url">Title</label>
-    <input type="text" name="title" value="<%= @link.title %>"/>
+    <input type="text" name="edit_title" value="<%= @link.title %>"/>
     <input type="submit" value="Submit" />
   </form>
   </body>

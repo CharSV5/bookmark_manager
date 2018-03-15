@@ -19,12 +19,12 @@ describe Link do
   describe '#create' do
     it 'creates a new link' do
       Rake::Task[:reset_table].execute
-      Link.create(url: 'http://www.testlink.com')
+      Link.create('http://www.testlink.com', 'Title')
       expect(Link.all[0].url).to eq 'http://www.testlink.com'
     end
   end
   it 'does not create a new link if the url is not valid' do
-    Link.create(url: 'not a link')
+    Link.create('not a link', 'not a link')
     expect(Link.all).not_to include 'not a link'
   end
 end
