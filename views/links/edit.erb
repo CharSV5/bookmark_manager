@@ -5,11 +5,10 @@
     <title></title>
   </head>
   <body>
-  <form action="/update-a-link" method="post">
-    <input type="hidden" name="id" value="<%= session[:id] %>">
+  <form action="/links/<%= @link.id %>/update" method="post">
     <label for="url">URL</label>
     <input type="text" name="edit_url" value="<%= @link.url %>"/>
-    <label for="url">Title</label>
+    <label for="title">Title</label>
     <input type="text" name="edit_title" value="<%= @link.title %>"/>
     <input type="submit" value="Submit" />
   </form>

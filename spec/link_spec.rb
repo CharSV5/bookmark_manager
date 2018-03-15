@@ -25,6 +25,14 @@ describe Link do
   end
   it 'does not create a new link if the url is not valid' do
     Link.create('not a link', 'not a link')
-    expect(Link.all).not_to include 'not a link'
+    expect(Link.all.find { |item| item.url == 'not a link' } ).to be_nil
+    expect(Link.all.find { |item| item.title == 'not a link' } ).to be_nil
+  end
+end
+describe '#delete' do
+  it 'deletes a link' do
+    Link.delete(1)
+    expect(Link.all.find { |item| item.title == 'Makers Academy' } ).to be_nil
+    expect(Link.all.find { |item| item.title == 'Google' } ).to_not be_nil
   end
 end

@@ -10,18 +10,17 @@
     <li id="link-<%= link.id %>">
          <a href="<%= link.url %>">
         <%= link.title %></a>
-        <form action="/delete" method="post">
-          <input type="hidden" name="id" value="<%= link.id %>">
+        <form action="/links/<%= link.id %>/delete" method="post">
         <input type="submit" value="Delete" />
       </form>
-      <form action="/edit" method="get">
+      <form action="/links/<%= link.id %>/update" method="get">
         <input type="hidden" name="id" value="<%= link.id %>">
       <input type="submit" value="Edit" />
     </form>
       </li>
       <% end %>
     </ul>
-    <a href="/new-link">Add New Link</a>
+    <a href="/links/new">Add New Link</a>
 
 
   </body>
