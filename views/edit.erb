@@ -7,8 +7,10 @@
   <body>
     <h3>Editing <%= session[:id] %>
   <form action="/update-a-link" method="post">
-    <input type="hidden" name="id" value="<%= @link_id %>">
+    <input type="hidden" name="id" value="<%= session[:id] %>">
+    <label for="url">URL</label>
     <input type="text" name="url" />
+    <label for="url">Title</label>
     <input type="text" name="title" />
     <input type="submit" value="Submit" />
   </form>

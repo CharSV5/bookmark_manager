@@ -16,9 +16,9 @@ attr_reader :id, :url, :title
     result.map { |link| Link.new(link['id'], link['url'], link['title'])}
   end
 
-  def self.create(options)
+  def self.create(url, title)
     return false unless is_url?(options[:url])
-    DatabaseConnection.query("INSERT INTO links (url, title) values('#{options[:url]}', '#{options[:title]}')")
+    DatabaseConnection.query("INSERT INTO links (url, title) values('#{url}', '#{title}')")
     true
   end
 
@@ -26,8 +26,10 @@ attr_reader :id, :url, :title
     DatabaseConnection.query "DELETE FROM links WHERE id = '#{id}';"
   end
 
-  def self.edit(id, options)
-    DatabaseConnection.query("UPDATE links SET url = '#{options[:url]}', title = '#{options[:title]}' WHERE id = '#{id}'")
+  def self.edit(id, url, title)
+    p id, url, title
+    return false unless is_url?(url)
+    DatabaseConnection.query("UPDATE links SET url = '#{url}', title = '#{title}' WHERE id = '#{id}'")
   end
 
   private

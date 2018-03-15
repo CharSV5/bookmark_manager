@@ -18,7 +18,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/create' do
-    successful = Link.create(url: params['url'], title: params['title'])
+    successful = Link.create(params[:url], params[:title])
     if successful
       redirect '/'
     else
@@ -36,6 +36,13 @@ class BookmarkManager < Sinatra::Base
     session[:id] = params[:id]
     erb :edit
   end
+
+  post '/update-a-link' do
+    Link.edit(params[:id], params[:url], params[:title])
+    Link.all
+    redirect '/'
+  end
+
    run! if app_file == $0
 
 end
