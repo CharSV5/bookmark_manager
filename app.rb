@@ -34,6 +34,7 @@ class BookmarkManager < Sinatra::Base
 
   get '/edit' do
     session[:id] = params[:id]
+    @link = Link.find(session[:id])
     erb :edit
   end
 
@@ -42,6 +43,9 @@ class BookmarkManager < Sinatra::Base
     Link.all
     redirect '/'
   end
+
+  
+
 
    run! if app_file == $0
 

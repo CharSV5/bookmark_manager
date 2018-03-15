@@ -32,6 +32,11 @@ attr_reader :id, :url, :title
     DatabaseConnection.query("UPDATE links SET url = '#{url}', title = '#{title}' WHERE id = '#{id}'")
   end
 
+  def self.find(id)
+    result = DatabaseConnection.query("SELECT * FROM links WHERE id = '#{id}';")
+    result.map { |link| Link.new(link['id'], link['url'], link['title']) }.first
+  end
+
   private
 
   def self.is_url?(url)
