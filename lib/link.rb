@@ -2,14 +2,19 @@ require_relative 'database_connection'
 require 'uri'
 
 class Link
+@@comments = []
+attr_reader :id, :url, :title, :comments
 
-attr_reader :id, :url, :title
-
-  def initialize(id, url, title)
+  def initialize(id, url, title )
     @id = id
     @url = url
     @title = title
   end
+
+def self.add_comment(id, text)
+  DatabaseConnection.query("INSERT INTO comments (link_id, text) values(#{id},'#{text}')")
+  @@comments.push(Comment.new(text))
+end
 
   def self.all
     result = DatabaseConnection.query("SELECT * FROM links")

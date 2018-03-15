@@ -3,7 +3,7 @@ require 'PG'
 task :test_database_setup do
   connection = PG.connect(dbname: 'bookmark_manager_test')
 
-  connection.exec("TRUNCATE links;")
+  connection.exec("TRUNCATE comments, links;")
 
   connection.exec("INSERT INTO links VALUES(1, 'http://www.makersacademy.com', 'Makers Academy');")
   connection.exec("INSERT INTO links VALUES(2, 'http://www.google.com', 'Google');")
@@ -21,19 +21,23 @@ task :setup_table do
   ['bookmark_manager', 'bookmark_manager_test'].each do |database|
 connection = PG.connect(dbname: database)
 connection.exec("CREATE TABLE IF NOT EXISTS links(id SERIAL PRIMARY KEY, url VARCHAR(60), title VARCHAR(60));")
+connection.exec("CREATE TABLE IF NOT EXISTS comments(id SERIAL PRIMARY KEY, link_id INTEGER REFERENCES links (id),text VARCHAR(240) );")
+
    end
 end
 
 task :drop_table do
   ['bookmark_manager', 'bookmark_manager_test'].each do |database|
 connection = PG.connect(dbname: database)
+connection.exec('DROP TABLE "comments";')
 connection.exec('DROP TABLE "links";')
+
 end
 end
 
 task :reset_table do
   ['bookmark_manager', 'bookmark_manager_test'].each do |database|
 connection = PG.connect(dbname: database)
-connection.exec('TRUNCATE "links";')
+connection.exec("TRUNCATE comments, links;")
 end
 end

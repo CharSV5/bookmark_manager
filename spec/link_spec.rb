@@ -36,3 +36,9 @@ describe '#delete' do
     expect(Link.all.find { |item| item.title == 'Google' } ).to_not be_nil
   end
 end
+
+describe '#edit' do
+  it 'updates an existing link' do
+
+  end
+end

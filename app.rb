@@ -3,13 +3,14 @@ require './lib/link'
 require './database_connection_setup'
 require 'sinatra/flash'
 require './lib/database_connection'
+require './lib/comment'
 
 class BookmarkManager < Sinatra::Base
   enable :sessions
   register Sinatra::Flash
 
   get '/' do
-    redirect 'links'
+    redirect '/links'
   end
 
   get '/links' do
@@ -44,9 +45,24 @@ class BookmarkManager < Sinatra::Base
   post '/links/:id/update' do
     Link.edit(params[:id], params[:edit_url], params[:edit_title])
     Link.all
-    redirect '/'
+    redirect '/links'
   end
 
+  post '/links/:id/comments' do
+   session[:message] = params[:id]
+  redirect '/links/:id/comments'
+end
+
+  get '/links/:id/comments' do
+
+  session[:message]
+    erb :"comments/new"
+  end
+
+  post '/links/:id/add_comment' do
+    Link.add_comment(params[:id], params[:comment])
+    redirect '/links'
+  end
 
 
 
