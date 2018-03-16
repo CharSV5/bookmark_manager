@@ -5,6 +5,7 @@
     <title></title>
   </head>
   <body>
+    <a href="/links/new">Add New Link</a>
     <ul>
     <% @links.each do |link| %>
     <li id="link-<%= link.id %>">
@@ -16,14 +17,15 @@
       <form action="/links/<%= link.id %>/update" method="get">
       <input type="submit" value="Edit" />
     </form>
-      <form action="/links/<%= link.id %>/comments" method="post">
-      <input type="submit" value="Comment" />
-    </form>
-    <%= link.comments %>
+    <a href="/links/<%= link.id %>/comments/new">Comment</a>
+        <ul>
+          <% link.comments.each do |comment| %>
+          <li><%= comment.text  %></li>
+          <% end %>
+        </ul>
       </li>
       <% end %>
     </ul>
-    <a href="/links/new">Add New Link</a>
 
 
   </body>

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="/styles.css">
     <meta charset="utf-8">
     <title></title>
   </head>
   <body>
-    <form action="/links/<%= session[:message] %>/add_comment" method="post">
-      <input type="text" id="textboxid" name="comment">
+    <form action="/links/<%= @link.id %>/comments" method="post">
+      <textarea name="text">
+      </textarea>
       <input type="submit" value="Submit">
+    </form>
   </body>
 </html>

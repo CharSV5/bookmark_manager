@@ -48,19 +48,18 @@ class BookmarkManager < Sinatra::Base
     redirect '/links'
   end
 
-  post '/links/:id/comments' do
-   session[:message] = params[:id]
-  redirect '/links/:id/comments'
-end
 
-  get '/links/:id/comments' do
-
-  session[:message]
+  get '/links/:id/comments/new' do
+  @link = Link.find(params[:id])
+  p @link.comments
     erb :"comments/new"
   end
 
-  post '/links/:id/add_comment' do
-    Link.add_comment(params[:id], params[:comment])
+  post '/links/:id/comments' do
+    comment = Comment.create(params[:id], params[:text])
+    puts params[:id]
+    puts params[:text]
+    puts comment
     redirect '/links'
   end
 

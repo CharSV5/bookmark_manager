@@ -2,7 +2,7 @@ require_relative 'database_connection'
 require 'uri'
 
 class Link
-@@comments = []
+COMMENTS = []
 attr_reader :id, :url, :title, :comments
 
   def initialize(id, url, title )
@@ -11,11 +11,6 @@ attr_reader :id, :url, :title, :comments
     @title = title
   end
 
-def self.add_comment(id, text)
-  DatabaseConnection.query("INSERT INTO comments (link_id, text) values(#{id},'#{text}')")
-  @@comments.push(Comment.new(text))
-end
-
   def self.all
     result = DatabaseConnection.query("SELECT * FROM links")
     result.map { |link| Link.new(link['id'], link['url'], link['title'])}
@@ -23,11 +18,13 @@ end
 
   def self.create(url, title)
     return false unless is_url?(url)
-    DatabaseConnection.query("INSERT INTO links (url, title) values('#{url}', '#{title}')")
+    result = DatabaseConnection.query("INSERT INTO links (url, title) values('#{url}', '#{title}') RETURNING id, url, title")
+    Link.new(result[0][:id], result[0][:url], result[0][:title])
     true
   end
 
   def self.delete(id)
+    DatabaseConnection.query('TRUNCATE "comments";')
     DatabaseConnection.query "DELETE FROM links WHERE id = '#{id}';"
   end
 
@@ -40,6 +37,11 @@ end
   def self.find(id)
     result = DatabaseConnection.query("SELECT * FROM links WHERE id = '#{id}';")
     result.map { |link| Link.new(link['id'], link['url'], link['title']) }.first
+  end
+
+  def comments
+    result =  DatabaseConnection.query("SELECT * FROM comments WHERE link_id = #{@id}")
+    result.map { |comment| Comment.new(comment['id'], comment['text']) }
   end
 
   private
